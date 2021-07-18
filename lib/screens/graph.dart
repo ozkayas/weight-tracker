@@ -10,8 +10,8 @@ class GraphScreen extends StatefulWidget {
 class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Graph'),
+    return Scaffold(
+      appBar: AppBar(title: Text('Graph')),
     );
   }
 }

@@ -10,8 +10,8 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('History'),
+    return Scaffold(
+      appBar: AppBar(title: Text('History')),
     );
   }
 }
