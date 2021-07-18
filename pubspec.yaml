@@ -31,6 +31,7 @@ dependencies:
   freezed_annotation:
   json_annotation:
   get: ^4.1.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

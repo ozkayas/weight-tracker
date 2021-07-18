@@ -28,8 +28,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _controller.addRecord(
-              Record(dateTime: DateTime.now(), weight: 30.0, note: 'CCC'));
+          _controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
         },
         child: Icon(Icons.add),
       ),
