@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weight_tracker/screens/graph.dart';
-import 'package:weight_tracker/screens/history.dart';
+import 'package:weight_tracker/models/record.dart';
+import 'package:weight_tracker/viewmodels/controller.dart';
+import 'package:weight_tracker/views/graph.dart';
+import 'package:weight_tracker/views/history.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> screens = [GraphScreen(), HistoryScreen()];
   Widget currentScreen = GraphScreen();
   final PageStorageBucket bucket = PageStorageBucket();
+  final Controller _controller = Get.put(Controller());
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,10 @@ class _HomePageState extends State<HomePage> {
         child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          _controller.addRecord(
+              Record(dateTime: DateTime.now(), weight: 30.0, note: 'CCC'));
+        },
         child: Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
