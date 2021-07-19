@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
+import 'package:weight_tracker/views/add_record.dart';
 import 'package:weight_tracker/views/graph.dart';
 import 'package:weight_tracker/views/history.dart';
 
@@ -28,7 +29,8 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
+          Get.to(AddRecordScreen());
+          //_controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
         },
         child: Icon(Icons.add),
       ),

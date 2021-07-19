@@ -20,15 +20,17 @@ class RecordListTile extends StatelessWidget {
     ///Todo; bu sinif icinden controllera ulasmak dogru mu? Burasi widget.
     final Controller _controller = Get.find();
 
-    return ListTile(
-      leading: date,
-      title: Center(child: weight),
-      subtitle: Center(child: subtitleNote),
-      trailing: IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () {
-          _controller.deleteRecord(record);
-        },
+    return Card(
+      child: ListTile(
+        leading: date,
+        title: Center(child: weight),
+        subtitle: Center(child: subtitleNote),
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            _controller.deleteRecord(record);
+          },
+        ),
       ),
     );
   }
