@@ -22,6 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //_controller.fetchRecordsFromStorage();
+
     return Scaffold(
       body: PageStorage(
         bucket: bucket,
