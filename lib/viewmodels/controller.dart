@@ -11,4 +11,8 @@ class Controller extends GetxController {
   void addRecord(Record record) {
     records.add(record);
   }
+
+  void deleteRecord(Record record) {
+    records.remove(record);
+  }
 }
