@@ -16,13 +16,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('History')),
-      body: Obx(() => ListView(
-            children: _controller.records
-                .map((record) => RecordListTile(record: record))
-                .toList(),
-          )),
-    );
+    return Obx(() => Scaffold(
+          appBar: AppBar(title: Text('History')),
+          body: _controller.records.isEmpty
+              ? Center(child: Container(child: Text("Please Add Some Records")))
+              : ListView(
+                  children: _controller.records
+                      .map((record) => RecordListTile(record: record))
+                      .toList(),
+                ),
+        ));
   }
 }

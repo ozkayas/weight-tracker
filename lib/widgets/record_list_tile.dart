@@ -3,6 +3,7 @@ import 'package:weight_tracker/models/record.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
+import 'package:weight_tracker/views/edit_record.dart';
 
 class RecordListTile extends StatelessWidget {
   const RecordListTile({Key? key, required this.record}) : super(key: key);
@@ -25,11 +26,28 @@ class RecordListTile extends StatelessWidget {
         leading: date,
         title: Center(child: weight),
         subtitle: Center(child: subtitleNote),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            _controller.deleteRecord(record);
-          },
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.edit,
+                color: Colors.greenAccent,
+              ),
+              onPressed: () {
+                Get.to(EditRecordScreen(record: record));
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Colors.redAccent,
+              ),
+              onPressed: () {
+                _controller.deleteRecord(record);
+              },
+            ),
+          ],
         ),
       ),
     );

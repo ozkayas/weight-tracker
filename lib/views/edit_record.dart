@@ -18,25 +18,32 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
   TextEditingController _date = TextEditingController();
   TextEditingController _weight = TextEditingController();
   TextEditingController _note = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
+  late DateTime _selectedDate;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    final Record record = widget.record;
+    _selectedDate = record.dateTime;
+    _date.text = DateFormat('EEE, MMM d').format(record.dateTime);
+    _weight.text = record.weight.toStringAsFixed(1);
+    _note.text = record.note ?? "";
+  }
+
+  @override
+  void dispose() {
+    _date.dispose();
+    _weight.dispose();
+    _note.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final Record record = widget.record;
-    _date.text = DateFormat('EEE, MMM d').format(record.dateTime);
-    _weight.text = record.weight.toStringAsFixed(1);
-    _note.text = record.note ?? "";
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add New Record'),
+        title: Text('Edit Record'),
       ),
       body: Center(
         child: Padding(
@@ -52,7 +59,10 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                 ),
                 onTap: () async {
                   _selectedDate = await pickDate(context);
-                  setState(() {});
+                  print(_selectedDate.toIso8601String());
+                  setState(() {
+                    _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
+                  });
                 },
               ),
               TextFormField(
@@ -93,7 +103,7 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                   onPressed: () {
                     // Validate returns true if the form is valid, or false otherwise.
                     if (_formKey.currentState!.validate()) {
-                      handleSave();
+                      handleEdit();
                     }
                   },
                   child: Text('Save Record'),
@@ -123,11 +133,12 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     }
   }
 
-  void handleSave() {
+  void handleEdit() {
     Record newRecord = Record(
         dateTime: _selectedDate,
         weight: double.parse(_weight.text),
         note: _note.text);
+    _controller.deleteRecord(widget.record);
     _controller.addRecord(newRecord);
     Get.back();
   }
