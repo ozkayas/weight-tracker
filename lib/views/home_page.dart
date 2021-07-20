@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'package:weight_tracker/views/add_record.dart';
 import 'package:weight_tracker/views/graph.dart';
@@ -53,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.auto_graph),
-                      Text('Home'),
+                      Text('Graph'),
                     ],
                   ),
                   onTap: () {
