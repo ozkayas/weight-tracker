@@ -30,10 +30,11 @@ class Controller extends GetxController {
 
   void addRecord(Record record) {
     records.add(record);
-    //setRecordsToStorage();
+    records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
   }
 
   void deleteRecord(Record record) {
     records.remove(record);
+    records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
   }
 }

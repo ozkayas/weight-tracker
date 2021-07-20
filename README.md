@@ -4,7 +4,8 @@ A weight tracking app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+State Management & Data Persistence and Routing is implemented via GetX package.
+Chart -> fl_chart package.
 
 A few resources to get you started if this is your first Flutter project:
 

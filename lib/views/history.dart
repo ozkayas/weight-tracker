@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'package:get/get.dart';
 import 'package:weight_tracker/widgets/record_list_tile.dart';
@@ -16,15 +17,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          appBar: AppBar(title: Text('History')),
-          body: _controller.records.isEmpty
-              ? Center(child: Container(child: Text("Please Add Some Records")))
-              : ListView(
-                  children: _controller.records
-                      .map((record) => RecordListTile(record: record))
-                      .toList(),
-                ),
-        ));
+    List<Record> records = _controller.records;
+
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(title: Text('History')),
+        body: records.isEmpty
+            ? Center(child: Container(child: Text("Please Add Some Records")))
+            : ListView(
+                children: records
+                    .map((record) => RecordListTile(record: record))
+                    .toList(),
+              ),
+      ),
+    );
   }
 }
