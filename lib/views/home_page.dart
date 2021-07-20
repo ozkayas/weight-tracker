@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue.shade800,
         onPressed: () {
           Get.to(AddRecordScreen());
           //_controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
@@ -38,11 +39,14 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
+        notchMargin: 5,
         child: Container(
           //height: 50,
           height: Get.height / 12,
-          color: Colors.deepOrangeAccent,
+          color: Colors.blue.shade700,
           child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: InkWell(

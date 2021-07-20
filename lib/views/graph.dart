@@ -16,17 +16,33 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Graph')),
+      appBar: AppBar(
+        title: Text('Graph'),
+        backgroundColor: Colors.blue.shade700,
+      ),
       body: Column(
         children: [
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: RecordsGraph(),
-            ),
+          Container(
+            padding: EdgeInsets.all(16.0),
+            child: RecordsGraph(),
           ),
-          Placeholder(
-            fallbackHeight: Get.height * 0.3,
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    _controller.records.last.weight.toStringAsFixed(1),
+                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('kg')
+                ]),
+                Text('Current Weight')
+              ],
+            ),
           )
         ],
       ),
