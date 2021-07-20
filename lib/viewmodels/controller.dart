@@ -6,12 +6,14 @@ class Controller extends GetxController {
   final box = GetStorage();
 
   var records = <Record>[
-    /* Record(dateTime: DateTime.now(), weight: 10.0, note: 'AAA'),
-    Record(dateTime: DateTime.now(), weight: 20.0, note: 'BBB'),
-    Record(dateTime: DateTime.now(), weight: 30.0, note: 'CCC'),*/
+    Record(dateTime: DateTime(2020, 1, 1), weight: 10.0, note: 'AAA'),
+    Record(dateTime: DateTime(2020, 1, 15), weight: 20.0, note: 'BBB'),
+    Record(dateTime: DateTime(2020, 1, 30), weight: 30.0, note: 'CCC'),
+    Record(dateTime: DateTime(2020, 2, 1), weight: 34.0, note: 'CCC'),
+    Record(dateTime: DateTime(2020, 2, 12), weight: 25.0, note: 'CCC'),
   ].obs;
 
-  @override
+/*  @override
   void onInit() {
     // TODO: implement onInit
     List? resultFromStorage = box.read<List>('records');
@@ -24,7 +26,7 @@ class Controller extends GetxController {
 
     ever(records, (_) => {box.write('records', records.toList())});
     super.onInit();
-  }
+  }*/
 
   void addRecord(Record record) {
     records.add(record);

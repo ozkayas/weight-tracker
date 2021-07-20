@@ -26,7 +26,7 @@ class _GraphScreenState extends State<GraphScreen> {
             ),
           ),
           Placeholder(
-            fallbackHeight: Get.height * 0.4,
+            fallbackHeight: Get.height * 0.3,
           )
         ],
       ),
