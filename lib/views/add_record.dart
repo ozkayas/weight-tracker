@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
+import 'dart:io';
 
 class AddRecordScreen extends StatefulWidget {
   const AddRecordScreen({Key? key}) : super(key: key);
@@ -19,7 +22,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   TextEditingController _note = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
-
+  File? _imageFile;
   @override
   Widget build(BuildContext context) {
     _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
@@ -76,7 +79,11 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   labelText: 'Optional Note',
                 ),
               ),
-              IconButton(onPressed: null, icon: Icon(Icons.camera_alt)),
+              IconButton(
+                  onPressed: () async {
+                    await captureSaveImage();
+                  },
+                  icon: Icon(Icons.camera_alt)),
               ConstrainedBox(
                 constraints: BoxConstraints.tightFor(
                   width: double.infinity,
@@ -90,7 +97,20 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   },
                   child: Text('Save Record'),
                 ),
-              )
+              ),
+              (_imageFile == null)
+                  ? Container()
+                  : Expanded(
+                      child: Container(
+                        margin: EdgeInsets.all(12),
+                        //child: Text('AAA'),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(_imageFile!))),
+                      ),
+                    )
             ]),
           ),
         ),
@@ -122,5 +142,28 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
         note: _note.text);
     _controller.addRecord(newRecord);
     Get.back();
+  }
+
+  Future<File?> captureSaveImage() async {
+    final XFile? pickedImage = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50);
+
+    if (pickedImage == null) return null;
+
+    _imageFile = File(pickedImage.path);
+
+    // getting a directory path for saving
+    final Directory extDir = await getApplicationDocumentsDirectory();
+    String dirPath = extDir.path;
+    String imageName = DateTime.now().millisecondsSinceEpoch.toString();
+    final String filePath = '$dirPath/$imageName.png';
+    print(filePath);
+
+    // copy the file to a new path
+    final File newImage = await _imageFile!.copy(filePath);
+    setState(() {
+      print('setstate called');
+      _imageFile = newImage;
+    });
   }
 }

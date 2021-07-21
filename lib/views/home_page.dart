@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue.shade800,
         onPressed: () {
-          Get.to(AddRecordScreen());
+          Get.to(() => AddRecordScreen());
           //_controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
         },
         child: Icon(Icons.add),
