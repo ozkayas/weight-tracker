@@ -50,17 +50,17 @@ class _HomePageState extends State<HomePage> {
             children: [
               Expanded(
                 child: InkWell(
-                  //hoverColor: Colors.deepOrangeAccent,
-                  //splashColor: Colors.lightGreen,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.auto_graph),
+                      Icon(
+                        Icons.auto_graph,
+                        color: Colors.white,
+                      ),
                       Text('Graph'),
                     ],
                   ),
                   onTap: () {
-                    print('pressed');
                     setState(() {
                       currentScreen = GraphScreen();
                       currentTab = 0;
@@ -73,12 +73,11 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.history),
+                      Icon(Icons.history, color: Colors.white),
                       Text('History'),
                     ],
                   ),
                   onTap: () {
-                    print('history selected');
                     setState(() {
                       currentScreen = HistoryScreen();
                       currentTab = 1;

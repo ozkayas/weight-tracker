@@ -11,45 +11,63 @@ class RecordListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var date = Text(DateFormat('EEE, MMM d').format(record.dateTime));
-    var weight = Text(
-      record.weight.toStringAsFixed(1),
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    );
-    var subtitleNote = Text(record.note ?? '');
-
     ///Todo; bu sinif icinden controllera ulasmak dogru mu? Burasi widget.
     final Controller _controller = Get.find();
 
     return Card(
       child: ListTile(
-        leading: date,
-        title: Center(child: weight),
-        subtitle: Center(child: subtitleNote),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.edit,
-                color: Colors.greenAccent,
-              ),
-              onPressed: () {
-                Get.to(EditRecordScreen(record: record));
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.delete,
-                color: Colors.redAccent,
-              ),
-              onPressed: () {
-                _controller.deleteRecord(record);
-              },
-            ),
-          ],
-        ),
+        leading: buildDate(),
+        title: buildWeight(),
+        //subtitle: Center(child: subtitleNote),
+        trailing: buildRow(_controller),
       ),
     );
   }
+
+  Widget buildRow(Controller _controller) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          icon: Icon(
+            Icons.edit,
+            color: Colors.grey.shade500,
+          ),
+          onPressed: () {
+            Get.to(EditRecordScreen(record: record));
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: Colors.redAccent,
+          ),
+          onPressed: () {
+            _controller.deleteRecord(record);
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget buildDate() => Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(DateFormat('EEE, MMM d').format(record.dateTime)),
+          Icon(
+            Icons.note,
+            size: 16,
+            color:
+                record.note == '' ? Colors.transparent : Colors.grey.shade400,
+          )
+        ],
+      );
+
+  Widget buildWeight() => Center(
+        child: Text(
+          record.weight.toStringAsFixed(1),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      );
 }

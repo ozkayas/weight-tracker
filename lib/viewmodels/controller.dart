@@ -15,7 +15,6 @@ class Controller extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     List? resultFromStorage = box.read<List>('records');
     if (resultFromStorage != null) {
       records = resultFromStorage

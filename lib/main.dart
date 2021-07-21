@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// TODO; Add local storage with getx package
 /// Todo; Add Dark Theme
 /// Todo; Find & Add A Cool Graph package
-/// Todo; maybe; add photo feature for a Record
+/// Todo; Add photo feature for a Record, https://programmingwithswift.com/how-to-save-a-file-locally-with-flutter/
+/// Todo; toast to undo feature
+/// Todo; Local Notification if no record added for a week!

@@ -21,8 +21,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return Obx(
       () => Scaffold(
+        backgroundColor: Colors.blue.shade50,
         appBar: AppBar(
           title: Text('History'),
+          centerTitle: true,
           backgroundColor: Colors.blue.shade700,
         ),
         body: records.isEmpty

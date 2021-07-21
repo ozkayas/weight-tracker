@@ -12,40 +12,94 @@ class GraphScreen extends StatefulWidget {
 
 class _GraphScreenState extends State<GraphScreen> {
   final Controller _controller = Get.find();
+/*  late String currentWeight;
+  late String totalProgress;*/
+
+  String currentWeight() => _controller.records.last.weight.toStringAsFixed(1);
+
+  String totalProgress() =>
+      (_controller.records.last.weight - _controller.records.first.weight)
+          .toStringAsFixed(1);
+
+  Color totalProgressColor() {
+    return (_controller.records.last.weight -
+                _controller.records.first.weight) <
+            0
+        ? Colors.green
+        : Colors.red;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         title: Text('Graph'),
         backgroundColor: Colors.blue.shade700,
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            child: RecordsGraph(),
-          ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: _controller.records.isEmpty
+          ? Center(
+              child: Text('Please Add Some Records'),
+            )
+          : Column(
               children: [
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(
-                    _controller.records.last.weight.toStringAsFixed(1),
-                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: RecordsGraph(records: _controller.records),
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                currentWeight(),
+                                style: TextStyle(
+                                    fontSize: 50, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text('kg')
+                            ]),
+                        Text('Current Weight')
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    width: 10,
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                totalProgress(),
+                                style: TextStyle(
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold,
+                                    color: totalProgressColor()),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text('kg')
+                            ]),
+                        Text('Total Progress')
+                      ],
+                    ),
                   ),
-                  Text('kg')
-                ]),
-                Text('Current Weight')
+                )
               ],
             ),
-          )
-        ],
-      ),
     );
   }
 }

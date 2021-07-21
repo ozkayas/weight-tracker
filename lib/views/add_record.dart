@@ -48,12 +48,13 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
               TextFormField(
                 controller: _weight,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.fitness_center_outlined,
-                  ),
+                    prefixIcon: Icon(
+                      Icons.fitness_center_outlined,
+                    ),
+                    labelText: 'kg'
+                    //labelText: 'Date',
+                    ),
 
-                  //labelText: 'Date',
-                ),
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
 
                 ///Todo; should allow decimal input or use a picker
@@ -68,13 +69,14 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 },
               ),
               TextFormField(
-                /// Todo; will be multiple lines
                 controller: _note,
+                maxLines: null,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.edit),
                   labelText: 'Optional Note',
                 ),
               ),
+              IconButton(onPressed: null, icon: Icon(Icons.camera_alt)),
               ConstrainedBox(
                 constraints: BoxConstraints.tightFor(
                   width: double.infinity,

@@ -34,6 +34,9 @@ dependencies:
   intl: ^0.17.0
   get_storage: ^2.0.2
   fl_chart: ^0.36.2
+  path:
+  path_provider:
+  image_picker:
 
 dev_dependencies:
   flutter_test:
