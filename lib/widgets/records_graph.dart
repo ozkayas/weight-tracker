@@ -52,13 +52,43 @@ class RecordsGraph extends StatelessWidget {
       }
     }
 
+    String calculateBottomTitlesMiddle(double double) {
+      if (double.toInt() == 15) {
+        return 'JAN';
+      } else if (double.toInt() == 45) {
+        return "FEB";
+      } else if (double.toInt() == 75) {
+        return "MAR";
+      } else if (double.toInt() == 105) {
+        return "APR";
+      } else if (double.toInt() == 135) {
+        return "MAY";
+      } else if (double.toInt() == 165) {
+        return "JUN";
+      } else if (double.toInt() == 195) {
+        return "JUL";
+      } else if (double.toInt() == 225) {
+        return "AUG";
+      } else if (double.toInt() == 255) {
+        return "SEP";
+      } else if (double.toInt() == 285) {
+        return "OCT";
+      } else if (double.toInt() == 315) {
+        return "NOV";
+      } else if (double.toInt() == 345) {
+        return "DEC";
+      } else {
+        return "";
+      }
+    }
+
     //Graph Axis data
     var _minY =
         records.reduce((a, b) => a.weight < b.weight ? a : b).weight - 5;
     var _maxY =
         records.reduce((a, b) => a.weight > b.weight ? a : b).weight + 5;
-    var _minX = (numberOfDay(records.first.dateTime) - 1).toDouble();
-    var _maxX = (numberOfDay(records.last.dateTime) + 1).toDouble();
+    var _minX = (numberOfDay(records.first.dateTime) - 5).toDouble();
+    var _maxX = (numberOfDay(records.last.dateTime) + 5).toDouble();
 
     return records.isEmpty
         ? Container(
@@ -72,7 +102,7 @@ class RecordsGraph extends StatelessWidget {
                 lineBarsData: [
                   LineChartBarData(
                     spots: data(),
-                    isCurved: true,
+                    isCurved: false,
                     barWidth: 2,
                     colors: [
                       Colors.orange,
@@ -80,11 +110,12 @@ class RecordsGraph extends StatelessWidget {
                   ),
                 ],
                 titlesData: FlTitlesData(
+                  leftTitles: SideTitles(interval: 3, showTitles: true),
                   bottomTitles: SideTitles(
                       showTitles: true,
                       rotateAngle: 45.0,
                       interval: 10,
-                      getTitles: calculateBottomTitles),
+                      getTitles: calculateBottomTitlesMiddle),
                 ),
                 minX: _minX,
                 maxX: _maxX,

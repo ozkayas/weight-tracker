@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:get_storage/get_storage.dart';
 import 'package:weight_tracker/models/record.dart';
 
@@ -28,6 +29,10 @@ class Controller extends GetxController {
   }
 
   void addRecord(Record record) {
+    // Check and delete photo from device if any exists for this record
+    if (record.photoUrl != null) {
+      deleteFileFromDevice(record.photoUrl!);
+    }
     records.add(record);
     records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
   }
@@ -35,5 +40,10 @@ class Controller extends GetxController {
   void deleteRecord(Record record) {
     records.remove(record);
     records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+  }
+
+  void deleteFileFromDevice(String photoUrl) {
+    var file = File(photoUrl);
+    file.delete();
   }
 }
