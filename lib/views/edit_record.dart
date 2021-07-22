@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:weight_tracker/models/record.dart';
+import 'dart:io';
 import 'package:weight_tracker/viewmodels/controller.dart';
 
 class EditRecordScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
   TextEditingController _weight = TextEditingController();
   TextEditingController _note = TextEditingController();
   late DateTime _selectedDate;
+  String? _photoUrl;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -29,6 +31,7 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     _date.text = DateFormat('EEE, MMM d').format(record.dateTime);
     _weight.text = record.weight.toStringAsFixed(1);
     _note.text = record.note ?? "";
+    _photoUrl = record.photoUrl;
   }
 
   @override
@@ -41,6 +44,8 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.record.photoUrl);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Record'),
@@ -95,6 +100,22 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                   labelText: 'Optional Note',
                 ),
               ),
+              (_photoUrl == null)
+                  ? Container()
+                  : Expanded(
+                      child: Container(
+                        margin: EdgeInsets.all(12),
+                        //child: Text('AAA'),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: FileImage(File(_photoUrl!))
+                              //image: FileImage(_imageFile!))),
+                              ),
+                        ),
+                      ),
+                    ),
               ConstrainedBox(
                 constraints: BoxConstraints.tightFor(
                   width: double.infinity,

@@ -23,6 +23,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   DateTime _selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
   File? _imageFile;
+  String? photoUrl;
+
   @override
   Widget build(BuildContext context) {
     _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
@@ -98,17 +100,20 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   child: Text('Save Record'),
                 ),
               ),
-              (_imageFile == null)
+              (photoUrl == null)
                   ? Container()
                   : Expanded(
                       child: Container(
                         margin: EdgeInsets.all(12),
                         //child: Text('AAA'),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: FileImage(_imageFile!))),
+                          borderRadius: BorderRadius.circular(15),
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: FileImage(File(photoUrl!))
+                              //image: FileImage(_imageFile!))),
+                              ),
+                        ),
                       ),
                     )
             ]),
@@ -139,7 +144,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     Record newRecord = Record(
         dateTime: _selectedDate,
         weight: double.parse(_weight.text),
-        note: _note.text);
+        note: _note.text,
+        photoUrl: photoUrl);
     _controller.addRecord(newRecord);
     Get.back();
   }
@@ -165,5 +171,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       print('setstate called');
       _imageFile = newImage;
     });
+
+    // save photoUrl to state variable
+    photoUrl = filePath;
   }
 }
