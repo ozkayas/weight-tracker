@@ -21,11 +21,15 @@ class _$RecordTearOff {
   const _$RecordTearOff();
 
   _Record call(
-      {required DateTime dateTime, required double weight, String? note}) {
+      {required DateTime dateTime,
+      required double weight,
+      String? note,
+      String? photoUrl}) {
     return _Record(
       dateTime: dateTime,
       weight: weight,
       note: note,
+      photoUrl: photoUrl,
     );
   }
 
@@ -42,6 +46,7 @@ mixin _$Record {
   DateTime get dateTime => throw _privateConstructorUsedError;
   double get weight => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
+  String? get photoUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +57,7 @@ mixin _$Record {
 abstract class $RecordCopyWith<$Res> {
   factory $RecordCopyWith(Record value, $Res Function(Record) then) =
       _$RecordCopyWithImpl<$Res>;
-  $Res call({DateTime dateTime, double weight, String? note});
+  $Res call({DateTime dateTime, double weight, String? note, String? photoUrl});
 }
 
 /// @nodoc
@@ -68,6 +73,7 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
     Object? dateTime = freezed,
     Object? weight = freezed,
     Object? note = freezed,
+    Object? photoUrl = freezed,
   }) {
     return _then(_value.copyWith(
       dateTime: dateTime == freezed
@@ -82,6 +88,10 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -91,7 +101,7 @@ abstract class _$RecordCopyWith<$Res> implements $RecordCopyWith<$Res> {
   factory _$RecordCopyWith(_Record value, $Res Function(_Record) then) =
       __$RecordCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime dateTime, double weight, String? note});
+  $Res call({DateTime dateTime, double weight, String? note, String? photoUrl});
 }
 
 /// @nodoc
@@ -108,6 +118,7 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
     Object? dateTime = freezed,
     Object? weight = freezed,
     Object? note = freezed,
+    Object? photoUrl = freezed,
   }) {
     return _then(_Record(
       dateTime: dateTime == freezed
@@ -122,6 +133,10 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
               as String?,
+      photoUrl: photoUrl == freezed
+          ? _value.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -129,7 +144,8 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Record with DiagnosticableTreeMixin implements _Record {
-  _$_Record({required this.dateTime, required this.weight, this.note});
+  _$_Record(
+      {required this.dateTime, required this.weight, this.note, this.photoUrl});
 
   factory _$_Record.fromJson(Map<String, dynamic> json) =>
       _$_$_RecordFromJson(json);
@@ -140,10 +156,12 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
   final double weight;
   @override
   final String? note;
+  @override
+  final String? photoUrl;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Record(dateTime: $dateTime, weight: $weight, note: $note)';
+    return 'Record(dateTime: $dateTime, weight: $weight, note: $note, photoUrl: $photoUrl)';
   }
 
   @override
@@ -153,7 +171,8 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
       ..add(DiagnosticsProperty('type', 'Record'))
       ..add(DiagnosticsProperty('dateTime', dateTime))
       ..add(DiagnosticsProperty('weight', weight))
-      ..add(DiagnosticsProperty('note', note));
+      ..add(DiagnosticsProperty('note', note))
+      ..add(DiagnosticsProperty('photoUrl', photoUrl));
   }
 
   @override
@@ -166,7 +185,10 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
             (identical(other.weight, weight) ||
                 const DeepCollectionEquality().equals(other.weight, weight)) &&
             (identical(other.note, note) ||
-                const DeepCollectionEquality().equals(other.note, note)));
+                const DeepCollectionEquality().equals(other.note, note)) &&
+            (identical(other.photoUrl, photoUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.photoUrl, photoUrl)));
   }
 
   @override
@@ -174,7 +196,8 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(dateTime) ^
       const DeepCollectionEquality().hash(weight) ^
-      const DeepCollectionEquality().hash(note);
+      const DeepCollectionEquality().hash(note) ^
+      const DeepCollectionEquality().hash(photoUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +214,8 @@ abstract class _Record implements Record {
   factory _Record(
       {required DateTime dateTime,
       required double weight,
-      String? note}) = _$_Record;
+      String? note,
+      String? photoUrl}) = _$_Record;
 
   factory _Record.fromJson(Map<String, dynamic> json) = _$_Record.fromJson;
 
@@ -201,6 +225,8 @@ abstract class _Record implements Record {
   double get weight => throw _privateConstructorUsedError;
   @override
   String? get note => throw _privateConstructorUsedError;
+  @override
+  String? get photoUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RecordCopyWith<_Record> get copyWith => throw _privateConstructorUsedError;

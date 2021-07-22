@@ -9,6 +9,7 @@ class Record with _$Record {
   factory Record(
       {required DateTime dateTime,
       required double weight,
-      String? note}) = _Record;
+      String? note,
+      String? photoUrl}) = _Record;
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
 }
