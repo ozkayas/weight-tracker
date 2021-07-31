@@ -8,6 +8,9 @@ void main() async {
   await GetStorage.init();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // transparent status bar
+  ));
   runApp(MyApp());
 }
 
@@ -16,7 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         scaffoldBackgroundColor: Colors.grey.shade50,
         primaryTextTheme: TextTheme(
         headline6: TextStyle(
