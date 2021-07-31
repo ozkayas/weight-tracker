@@ -24,26 +24,32 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(child: Icon(FontAwesomeIcons.weight, size: 40,),),
-            NumberPicker(
-              textStyle: TextStyle(fontSize: 16, color: Colors.black45),
-              selectedTextStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
-              itemWidth: 80,
-              itemCount: 3,
-              value: _currentHorizontalIntValue,
-              minValue: 40,
-              maxValue: 130,
-              step: 1,
-              itemHeight:50,
-              axis: Axis.horizontal,
-              onChanged: (value)
-              {
-                print(value);
-                setState(() => _currentHorizontalIntValue = value);
-                widget.setWeight(value);},
-                decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.black26),
-              ),
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                NumberPicker(
+                  textStyle: TextStyle(fontSize: 16, color: Colors.black45),
+                  selectedTextStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
+                  itemWidth: 80,
+                  itemCount: 3,
+                  value: _currentHorizontalIntValue,
+                  minValue: 40,
+                  maxValue: 130,
+                  step: 1,
+                  itemHeight:50,
+                  axis: Axis.horizontal,
+                  onChanged: (value)
+                  {
+                    print(value);
+                    setState(() => _currentHorizontalIntValue = value);
+                    widget.setWeight(value);},
+                    decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.black26),
+                  ),
+                ),
+                Icon(FontAwesomeIcons.chevronUp, size: 16,)
+              ],
             ),
           ],
         ),

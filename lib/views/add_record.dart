@@ -30,8 +30,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   File? _imageFile;
   String? photoUrl;
 
-  void setWeight(int value){
-    _weight=value;
+  void setWeight(int value) {
+    _weight = value;
   }
 
   @override
@@ -49,9 +49,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
           child: Form(
             key: _formKey,
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               //WeightCard(),
               WeightPickerCard(setWeight: setWeight),
               Card(
@@ -63,18 +62,24 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Row(
-
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          child:Icon(FontAwesomeIcons.calendar, size: 40),
+                          child: Icon(FontAwesomeIcons.calendar, size: 40),
                         ),
-                        Expanded(child: Text(DateFormat('EEE, MMM d').format(_selectedDate), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),textAlign: TextAlign.center,))
-                      ],),
+                        Expanded(
+                            child: Text(
+                          DateFormat('EEE, MMM d').format(_selectedDate),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ))
+                      ],
+                    ),
                   ),
                 ),
               ),
-                  /*          TextFormField(
+              /*          TextFormField(
                 controller: _dateController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.date_range),
@@ -113,17 +118,25 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        child:Icon(FontAwesomeIcons.stickyNote, size: 40),
+                        child: Icon(FontAwesomeIcons.stickyNote, size: 40),
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:12.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: TextFormField(
                             controller: _noteController,
                             maxLines: null,
                             decoration: InputDecoration(
                               hintText: 'Optional Note',
-                              hintStyle: TextStyle(fontStyle: FontStyle.italic, color: Colors.black45)
+                              hintStyle: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black45),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black87),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black54),
+                              ),
                             ),
                           ),
                         ),
@@ -133,6 +146,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 ),
               ),
 
+              ///Todo: unfocus textfield
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -140,8 +154,10 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                       onPressed: () async {
                         await captureSaveImage();
                       },
-                      icon: Icon(Icons.camera_alt,size: 40,)),
-
+                      icon: Icon(
+                        Icons.camera_alt,
+                        size: 40,
+                      )),
                   ConstrainedBox(
                     constraints: BoxConstraints.tightForFinite(
                       width: double.infinity,
@@ -185,13 +201,13 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   Future<DateTime> pickDate(BuildContext context) async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: initialDate.subtract(Duration(days: 365)),
-      lastDate: initialDate.add(
-        Duration(days: 30),
-      ),
-        builder: (BuildContext context, Widget ?child) {
+        context: context,
+        initialDate: initialDate,
+        firstDate: initialDate.subtract(Duration(days: 365)),
+        lastDate: initialDate.add(
+          Duration(days: 30),
+        ),
+        builder: (BuildContext context, Widget? child) {
           return Theme(
             data: ThemeData(
               primarySwatch: Colors.grey,
@@ -212,10 +228,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   secondary: Colors.black),
               dialogBackgroundColor: Colors.white,
             ),
-            child: child ??Text(""),
+            child: child ?? Text(""),
           );
-        }
-    );
+        });
     if (newDate != null) {
       return newDate;
     } else {
