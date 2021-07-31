@@ -8,8 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'dart:io';
-
-import 'package:weight_tracker/widgets/weight_card.dart';
 import 'package:weight_tracker/widgets/weight_picker_card.dart';
 
 class AddRecordScreen extends StatefulWidget {
