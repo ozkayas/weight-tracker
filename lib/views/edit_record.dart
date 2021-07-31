@@ -50,88 +50,85 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
       appBar: AppBar(
         title: Text('Edit Record'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-          child: Form(
-            key: _formKey,
-            child: Column(children: [
-              TextFormField(
-                controller: _date,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.date_range),
-                  //labelText: 'Date',
-                ),
-                onTap: () async {
-                  _selectedDate = await pickDate(context);
-                  print(_selectedDate.toIso8601String());
-                  setState(() {
-                    _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
-                  });
-                },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+        child: Form(
+          key: _formKey,
+          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            TextFormField(
+              controller: _date,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.date_range),
+                //labelText: 'Date',
               ),
-              TextFormField(
-                controller: _weight,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.fitness_center_outlined,
-                  ),
+              onTap: () async {
+                _selectedDate = await pickDate(context);
+                print(_selectedDate.toIso8601String());
+                setState(() {
+                  _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
+                });
+              },
+            ),
+            TextFormField(
+              controller: _weight,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.fitness_center_outlined,
+                ),
 
-                  //labelText: 'Date',
-                ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                //labelText: 'Date',
+              ),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
 
-                ///Todo; should allow decimal input or use a picker
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter weight';
-                  }
-                  return null;
-                },
+              ///Todo; should allow decimal input or use a picker
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ],
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter weight';
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              /// Todo; will be multiple lines
+              controller: _note,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.edit),
+                labelText: 'Optional Note',
               ),
-              TextFormField(
-                /// Todo; will be multiple lines
-                controller: _note,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.edit),
-                  labelText: 'Optional Note',
-                ),
-              ),
-              (_photoUrl == null)
-                  ? Container()
-                  : Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(12),
-                        //child: Text('AAA'),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: FileImage(File(_photoUrl!))
-                              //image: FileImage(_imageFile!))),
-                              ),
-                        ),
+            ),
+            (_photoUrl == null)
+                ? Container()
+                : Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(12),
+                      //child: Text('AAA'),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(
+                            fit: BoxFit.fill, image: FileImage(File(_photoUrl!))
+                            //image: FileImage(_imageFile!))),
+                            ),
                       ),
                     ),
-              ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                  width: double.infinity,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      handleEdit();
-                    }
-                  },
-                  child: Text('Save Record'),
-                ),
-              )
-            ]),
-          ),
+                  ),
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(
+                width: double.infinity,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  if (_formKey.currentState!.validate()) {
+                    handleEdit();
+                  }
+                },
+                child: Text('Save Record'),
+              ),
+            )
+          ]),
         ),
       ),
     );

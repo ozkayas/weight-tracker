@@ -50,16 +50,30 @@ class RecordListTile extends StatelessWidget {
     );
   }
 
-  Widget buildDate() => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+  Widget buildDate() => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(DateFormat('EEE, MMM d').format(record.dateTime)),
-          Icon(
-            Icons.note,
-            size: 16,
-            color:
-                record.note == '' ? Colors.transparent : Colors.grey.shade400,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.note,
+                size: 16,
+                color: record.note == ''
+                    ? Colors.transparent
+                    : Colors.grey.shade400,
+              ),
+              Icon(
+                Icons.photo_rounded,
+                size: 16,
+                color: record.photoUrl == null
+                    ? Colors.transparent
+                    : Colors.grey.shade400,
+              ),
+            ],
           )
         ],
       );
