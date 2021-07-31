@@ -8,6 +8,9 @@ import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'dart:io';
 
+import 'package:weight_tracker/widgets/weight_card.dart';
+import 'package:weight_tracker/widgets/weight_picker_card.dart';
+
 class AddRecordScreen extends StatefulWidget {
   const AddRecordScreen({Key? key}) : super(key: key);
 
@@ -17,17 +20,22 @@ class AddRecordScreen extends StatefulWidget {
 
 class _AddRecordScreenState extends State<AddRecordScreen> {
   final Controller _controller = Get.find();
-  TextEditingController _date = TextEditingController();
-  TextEditingController _weight = TextEditingController();
-  TextEditingController _note = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  //TextEditingController _weightController = TextEditingController();
+  TextEditingController _noteController = TextEditingController();
+  int _weight = 70;
   DateTime _selectedDate = DateTime.now();
   final _formKey = GlobalKey<FormState>();
   File? _imageFile;
   String? photoUrl;
 
+  void setWeight(int value){
+    _weight=value;
+  }
+
   @override
   Widget build(BuildContext context) {
-    _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
+    _dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,8 +47,10 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
           child: Form(
             key: _formKey,
             child: Column(children: [
+              //WeightCard(),
+              WeightPickerCard(setWeight: setWeight),
               TextFormField(
-                controller: _date,
+                controller: _dateController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.date_range),
                   //labelText: 'Date',
@@ -50,7 +60,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   setState(() {});
                 },
               ),
-              TextFormField(
+/*              TextFormField(
                 controller: _weight,
                 decoration: InputDecoration(
                     prefixIcon: Icon(
@@ -61,8 +71,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                     ),
 
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
-
-                ///Todo; should allow decimal input or use a picker
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
                 ],
@@ -72,20 +80,22 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   }
                   return null;
                 },
-              ),
+              ),*/
               TextFormField(
-                controller: _note,
+                controller: _noteController,
                 maxLines: null,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.edit),
                   labelText: 'Optional Note',
                 ),
               ),
+
               IconButton(
                   onPressed: () async {
                     await captureSaveImage();
                   },
                   icon: Icon(Icons.camera_alt)),
+
               ConstrainedBox(
                 constraints: BoxConstraints.tightFor(
                   width: double.infinity,
@@ -115,7 +125,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                               ),
                         ),
                       ),
-                    )
+                    ),
             ]),
           ),
         ),
@@ -143,8 +153,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   void handleSave() {
     Record newRecord = Record(
         dateTime: _selectedDate,
-        weight: double.parse(_weight.text),
-        note: _note.text,
+        //weight: double.parse(_weightController.text),
+        weight: _weight.toDouble(),
+        note: _noteController.text,
         photoUrl: photoUrl);
     _controller.addRecord(newRecord);
     Get.back();
