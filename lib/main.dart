@@ -16,10 +16,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+        scaffoldBackgroundColor: Colors.grey.shade50,
+        primaryTextTheme: TextTheme(
+        headline6: TextStyle(
+        color: Colors.black
+    ),),
+
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white,
+            centerTitle: true,
+
+            //titleTextStyle: TextStyle(color: Colors.green, backgroundColor: Colors.red),
+      ),),
       home: HomePage(),
     );
   }

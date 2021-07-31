@@ -105,7 +105,7 @@ class RecordsGraph extends StatelessWidget {
                     isCurved: false,
                     barWidth: 2,
                     colors: [
-                      Colors.orange,
+                      Colors.black54,
                     ],
                   ),
                 ],

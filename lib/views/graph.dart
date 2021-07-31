@@ -32,11 +32,9 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      //backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         title: Text('Graph'),
-        backgroundColor: Colors.blue.shade700,
-        centerTitle: true,
       ),
       body: _controller.records.isEmpty
           ? Center(

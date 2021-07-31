@@ -39,7 +39,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     _dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
 
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      //backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
         title: Text('Add New Record'),
         centerTitle: true,
@@ -106,28 +106,48 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   return null;
                 },
               ),*/
-              TextFormField(
-                controller: _noteController,
-                maxLines: null,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.edit),
-                  labelText: 'Optional Note',
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        child:Icon(FontAwesomeIcons.stickyNote, size: 40),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:12.0),
+                          child: TextFormField(
+                            controller: _noteController,
+                            maxLines: null,
+                            decoration: InputDecoration(
+                              hintText: 'Optional Note',
+                              hintStyle: TextStyle(fontStyle: FontStyle.italic, color: Colors.black45)
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                       onPressed: () async {
                         await captureSaveImage();
                       },
-                      icon: Icon(Icons.camera_alt)),
+                      icon: Icon(Icons.camera_alt,size: 40,)),
 
                   ConstrainedBox(
                     constraints: BoxConstraints.tightForFinite(
                       width: double.infinity,
                     ),
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.black),
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
                         if (_formKey.currentState!.validate()) {

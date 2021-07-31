@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue.shade800,
+        backgroundColor: Colors.black,
         onPressed: () {
           Get.to(() => AddRecordScreen());
           //_controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           //height: 50,
           height: Get.height / 12,
-          color: Colors.blue.shade700,
+          color: Colors.black87,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                         Icons.auto_graph,
                         color: Colors.white,
                       ),
-                      Text('Graph'),
+                      Text('Graph', style: TextStyle(color: Colors.white),),
                     ],
                   ),
                   onTap: () {
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.history, color: Colors.white),
-                      Text('History'),
+                      Text('History', style: TextStyle(color: Colors.white)),
                     ],
                   ),
                   onTap: () {

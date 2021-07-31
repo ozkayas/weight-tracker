@@ -21,15 +21,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return Obx(
       () => Scaffold(
-        backgroundColor: Colors.blue.shade50,
         appBar: AppBar(
           title: Text('History'),
-          centerTitle: true,
-          backgroundColor: Colors.blue.shade700,
         ),
         body: records.isEmpty
             ? Center(child: Container(child: Text("Please Add Some Records")))
             : ListView(
+
                 children: records
                     .map((record) => RecordListTile(record: record))
                     .toList(),

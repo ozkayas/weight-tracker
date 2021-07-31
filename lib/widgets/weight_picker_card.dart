@@ -25,8 +25,8 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
           children: [
             SizedBox(child: Icon(FontAwesomeIcons.weight, size: 40,),),
             NumberPicker(
-              //textStyle: TextStyle(fontSize: 20),
-              //selectedTextStyle: TextStyle(fontSize: 30,fontWeight: FontWeight.bold, color: Colors.blueAccent),
+              textStyle: TextStyle(fontSize: 16, color: Colors.black45),
+              selectedTextStyle: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
               itemWidth: 80,
               itemCount: 3,
               value: _currentHorizontalIntValue,
