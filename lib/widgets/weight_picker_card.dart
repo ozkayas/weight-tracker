@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 
@@ -16,37 +17,37 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(child: Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        children: [
-          Text('WEIGHT - kg'),
-          SizedBox(height: 20),
-          NumberPicker(
-            textStyle: TextStyle(fontSize: 20),
-            selectedTextStyle: TextStyle(fontSize: 30,fontWeight: FontWeight.bold, color: Colors.blueAccent),
-
-            itemWidth: 100,
-            itemCount: 3,
-            value: _currentHorizontalIntValue,
-            minValue: 40,
-            maxValue: 130,
-            step: 1,
-            itemHeight:70,
-            axis: Axis.horizontal,
-            onChanged: (value)
-            {
-
-              print(value);
-              setState(() => _currentHorizontalIntValue = value);
-              widget.setWeight(value);},
-              decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.black26),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(child: Icon(FontAwesomeIcons.weight, size: 40,),),
+            NumberPicker(
+              //textStyle: TextStyle(fontSize: 20),
+              //selectedTextStyle: TextStyle(fontSize: 30,fontWeight: FontWeight.bold, color: Colors.blueAccent),
+              itemWidth: 80,
+              itemCount: 3,
+              value: _currentHorizontalIntValue,
+              minValue: 40,
+              maxValue: 130,
+              step: 1,
+              itemHeight:50,
+              axis: Axis.horizontal,
+              onChanged: (value)
+              {
+                print(value);
+                setState(() => _currentHorizontalIntValue = value);
+                widget.setWeight(value);},
+                decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.black26),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),);
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -38,18 +39,42 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     _dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
 
     return Scaffold(
+      backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
         title: Text('Add New Record'),
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
           child: Form(
             key: _formKey,
-            child: Column(children: [
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
               //WeightCard(),
               WeightPickerCard(setWeight: setWeight),
-              TextFormField(
+              Card(
+                child: GestureDetector(
+                  onTap: () async {
+                    _selectedDate = await pickDate(context);
+                    setState(() {});
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          child:Icon(FontAwesomeIcons.calendar, size: 40),
+                        ),
+                        Expanded(child: Text(DateFormat('EEE, MMM d').format(_selectedDate), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),textAlign: TextAlign.center,))
+                      ],),
+                  ),
+                ),
+              ),
+                  /*          TextFormField(
                 controller: _dateController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.date_range),
@@ -59,7 +84,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   _selectedDate = await pickDate(context);
                   setState(() {});
                 },
-              ),
+              ),*/
 /*              TextFormField(
                 controller: _weight,
                 decoration: InputDecoration(
@@ -90,25 +115,29 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 ),
               ),
 
-              IconButton(
-                  onPressed: () async {
-                    await captureSaveImage();
-                  },
-                  icon: Icon(Icons.camera_alt)),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () async {
+                        await captureSaveImage();
+                      },
+                      icon: Icon(Icons.camera_alt)),
 
-              ConstrainedBox(
-                constraints: BoxConstraints.tightFor(
-                  width: double.infinity,
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    if (_formKey.currentState!.validate()) {
-                      handleSave();
-                    }
-                  },
-                  child: Text('Save Record'),
-                ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints.tightForFinite(
+                      width: double.infinity,
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_formKey.currentState!.validate()) {
+                          handleSave();
+                        }
+                      },
+                      child: Text('Save Record'),
+                    ),
+                  ),
+                ],
               ),
               (photoUrl == null)
                   ? Container()
