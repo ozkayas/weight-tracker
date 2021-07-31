@@ -40,7 +40,6 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
                   axis: Axis.horizontal,
                   onChanged: (value)
                   {
-                    print(value);
                     setState(() => _currentHorizontalIntValue = value);
                     widget.setWeight(value);},
                     decoration: BoxDecoration(

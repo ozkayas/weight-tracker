@@ -27,7 +27,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         body: records.isEmpty
             ? Center(child: Container(child: Text("Please Add Some Records")))
             : ListView(
-
+                physics: BouncingScrollPhysics(),
                 children: records
                     .map((record) => RecordListTile(record: record))
                     .toList(),
