@@ -4,8 +4,8 @@ import 'package:numberpicker/numberpicker.dart';
 
 
 class WeightPickerCard extends StatefulWidget {
-  const WeightPickerCard({Key? key, required this.setWeight}) : super(key: key);
-  final Function setWeight;
+  const WeightPickerCard({Key? key, required this.onChanged}) : super(key: key);
+  final Function onChanged;
 
   @override
   _WeightPickerCardState createState() => _WeightPickerCardState();
@@ -41,7 +41,7 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
                   onChanged: (value)
                   {
                     setState(() => _currentHorizontalIntValue = value);
-                    widget.setWeight(value);},
+                    widget.onChanged(value);},
                     decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.black26),

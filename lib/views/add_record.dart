@@ -19,25 +19,26 @@ class AddRecordScreen extends StatefulWidget {
 
 class _AddRecordScreenState extends State<AddRecordScreen> {
   final Controller _controller = Get.find();
-  TextEditingController _dateController = TextEditingController();
+  //TextEditingController _dateController = TextEditingController();
   //TextEditingController _weightController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
   int _weight = 70;
   DateTime _selectedDate = DateTime.now();
-  final _formKey = GlobalKey<FormState>();
+  //final _formKey = GlobalKey<FormState>();
   File? _imageFile;
+  //Local path of photo, if user takes one, to be saved in a record
   String? photoUrl;
 
+  //Callback function for WeighPickerCard
   void setWeight(int value) {
     _weight = value;
   }
 
   @override
   Widget build(BuildContext context) {
-    _dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
+    //_dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
 
     return Scaffold(
-      //backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
         title: Text('Add New Record'),
         centerTitle: true,
@@ -45,12 +46,10 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
-          child: Form(
-            key: _formKey,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              //WeightCard(),
-              WeightPickerCard(setWeight: setWeight),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              WeightPickerCard(onChanged: setWeight),
               Card(
                 child: GestureDetector(
                   onTap: () async {
@@ -77,38 +76,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   ),
                 ),
               ),
-              /*          TextFormField(
-                controller: _dateController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.date_range),
-                  //labelText: 'Date',
-                ),
-                onTap: () async {
-                  _selectedDate = await pickDate(context);
-                  setState(() {});
-                },
-              ),*/
-/*              TextFormField(
-                controller: _weight,
-                decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.fitness_center_outlined,
-                    ),
-                    labelText: 'kg'
-                    //labelText: 'Date',
-                    ),
 
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter weight';
-                  }
-                  return null;
-                },
-              ),*/
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -120,7 +88,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 12.0),
                           child: TextFormField(
                             controller: _noteController,
                             maxLines: null,
@@ -144,7 +113,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 ),
               ),
 
-              ///Todo: unfocus textfield
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -164,9 +132,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                       style: ElevatedButton.styleFrom(primary: Colors.black),
                       onPressed: () {
                         // Validate returns true if the form is valid, or false otherwise.
-                        if (_formKey.currentState!.validate()) {
-                          handleSave();
-                        }
+                        handleSave();
+
                       },
                       child: Text('Save Record'),
                     ),
@@ -189,7 +156,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                         ),
                       ),
                     ),
-            ]),
+            ],
           ),
         ),
       ),
@@ -239,7 +206,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   void handleSave() {
     Record newRecord = Record(
         dateTime: _selectedDate,
-        //weight: double.parse(_weightController.text),
         weight: _weight.toDouble(),
         note: _noteController.text,
         photoUrl: photoUrl);
@@ -258,6 +224,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     // getting a directory path for saving
     final Directory extDir = await getApplicationDocumentsDirectory();
     String dirPath = extDir.path;
+    // set image name from DateTime
     String imageName = DateTime.now().millisecondsSinceEpoch.toString();
     final String filePath = '$dirPath/$imageName.png';
     print(filePath);

@@ -11,14 +11,12 @@ class RecordListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///Todo; bu sinif icinden controllera ulasmak dogru mu? Burasi widget.
     final Controller _controller = Get.find();
 
     return Card(
       child: ListTile(
         leading: buildDate(),
         title: buildWeight(),
-        //subtitle: Center(child: subtitleNote),
         trailing: buildRow(_controller),
       ),
     );
