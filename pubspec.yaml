@@ -39,6 +39,7 @@ dependencies:
   image_picker:
   numberpicker: ^2.1.1
   font_awesome_flutter: ^9.1.0
+  gallery_saver: any
 
 dev_dependencies:
   flutter_test:

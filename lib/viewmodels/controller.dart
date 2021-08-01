@@ -29,16 +29,17 @@ class Controller extends GetxController {
   }
 
   void addRecord(Record record) {
-    // Check and delete photo from device if any exists for this record
-    if (record.photoUrl != null) {
-      deleteFileFromDevice(record.photoUrl!);
-    }
+
     records.add(record);
     records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
   }
 
   void deleteRecord(Record record) {
     records.remove(record);
+    // Check and delete photo from device if any exists for this record
+    if (record.photoUrl != null) {
+      deleteFileFromDevice(record.photoUrl!);
+    }
     records.sort((a, b) => a.dateTime.compareTo(b.dateTime));
   }
 

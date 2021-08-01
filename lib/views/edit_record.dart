@@ -20,8 +20,10 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
   TextEditingController _weight = TextEditingController();
   TextEditingController _note = TextEditingController();
   late DateTime _selectedDate;
+  var _imageFile;
   String? _photoUrl;
   final _formKey = GlobalKey<FormState>();
+
 
   @override
   void initState() {
@@ -32,7 +34,12 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     _weight.text = record.weight.toStringAsFixed(1);
     _note.text = record.note ?? "";
     _photoUrl = record.photoUrl;
+    _imageFile= FileImage(File(_photoUrl!));
   }
+
+
+
+
 
   @override
   void dispose() {
@@ -44,10 +51,12 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.record.photoUrl);
+    print('widget.record.photoUrl: ${widget.record.photoUrl}');
+    print('_photoUrl $_photoUrl');
 
     return Scaffold(
       appBar: AppBar(
+
         title: Text('Edit Record'),
       ),
       body: Padding(
@@ -108,7 +117,9 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         image: DecorationImage(
-                            fit: BoxFit.fill, image: FileImage(File(_photoUrl!))
+                            fit: BoxFit.fill,
+
+                            image: _imageFile
                             //image: FileImage(_imageFile!))),
                             ),
                       ),
@@ -131,6 +142,14 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
           ]),
         ),
       ),
+
+      // check if file exists
+      floatingActionButton: FloatingActionButton(onPressed: ()async{
+
+        print(FileSystemEntity.typeSync(_photoUrl!) != FileSystemEntityType.notFound);
+       print(await File(_photoUrl!).exists());
+
+      }),
     );
   }
 
@@ -155,7 +174,9 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     Record newRecord = Record(
         dateTime: _selectedDate,
         weight: double.parse(_weight.text),
-        note: _note.text);
+        note: _note.text,
+        photoUrl: _photoUrl
+    );
     _controller.deleteRecord(widget.record);
     _controller.addRecord(newRecord);
     Get.back();

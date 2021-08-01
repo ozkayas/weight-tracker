@@ -32,7 +32,7 @@ class RecordListTile extends StatelessWidget {
             color: Colors.grey.shade500,
           ),
           onPressed: () {
-            Get.to(EditRecordScreen(record: record));
+            Get.to(()=>EditRecordScreen(record: record));
           },
         ),
         IconButton(

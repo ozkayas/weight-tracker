@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,6 +8,7 @@ import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'dart:io';
 import 'package:weight_tracker/widgets/weight_picker_card.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class AddRecordScreen extends StatefulWidget {
   const AddRecordScreen({Key? key}) : super(key: key);
@@ -118,7 +118,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 children: [
                   IconButton(
                       onPressed: () async {
-                        await captureSaveImage();
+                        await captureSaveImageToExternalStorage();
+                        //await captureSaveImage();
+                        //await captureSaveImageToGallery();
                       },
                       icon: Icon(
                         Icons.camera_alt,
@@ -215,18 +217,25 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
 
   Future<File?> captureSaveImage() async {
     final XFile? pickedImage = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 50);
+        .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 200);
+    print(pickedImage!.name);
+    print(pickedImage.path);
 
     if (pickedImage == null) return null;
 
     _imageFile = File(pickedImage.path);
+    // check if exists
+    print('image from camera exists ? : ${_imageFile!.existsSync()}');
 
     // getting a directory path for saving
     final Directory extDir = await getApplicationDocumentsDirectory();
     String dirPath = extDir.path;
+    print('application directory to save images: ${extDir.path}');
+
+
     // set image name from DateTime
     String imageName = DateTime.now().millisecondsSinceEpoch.toString();
-    final String filePath = '$dirPath/$imageName.png';
+    final String filePath = '$dirPath/$imageName.jpg';
     print(filePath);
 
     // copy the file to a new path
@@ -235,8 +244,49 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
       print('setstate called');
       _imageFile = newImage;
     });
+    print('image copy on $filePath ? : ${newImage.existsSync()}');
 
     // save photoUrl to state variable
     photoUrl = filePath;
+    print('File(photoUrl!).existsSync() : ${File(photoUrl!).existsSync()}');
+
   }
+
+  Future<File?> captureSaveImageToExternalStorage() async {
+    final XFile? pickedImage = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 200);
+    //print(pickedImage!.name);
+    //print(pickedImage.path);
+
+    if (pickedImage == null) return null;
+
+    //_imageFile = File(pickedImage.path);
+    // check if exists
+    //print('image from camera exists ? : ${_imageFile!.existsSync()}');
+
+    String imageName = DateTime.now().millisecondsSinceEpoch.toString();
+    //String imageName = 'test';
+    File newImageFile;
+    try {
+      final directory = await getExternalStorageDirectory();
+      if (directory != null)
+        _imageFile = await File(pickedImage.path).copy('${directory.path}/$imageName.jpg');
+
+    } catch (e) {
+      return null;
+    }
+
+
+    setState(() {
+
+    });
+    //print('image copy on $filePath ? : ${newImage.existsSync()}');
+
+    // save photoUrl to state variable
+    photoUrl = _imageFile!.path;
+    print('File(photoUrl!).existsSync() : ${File(photoUrl!).existsSync()}');
+    print(photoUrl);
+
+  }
+
 }
