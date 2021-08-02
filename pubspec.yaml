@@ -40,6 +40,7 @@ dependencies:
   numberpicker: ^2.1.1
   font_awesome_flutter: ^9.1.0
   gallery_saver: any
+  animated_bottom_navigation_bar: ^0.3.2
 
 dev_dependencies:
   flutter_test:
