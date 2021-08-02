@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:weight_tracker/common/constants.dart';
 
 
 class WeightPickerCard extends StatefulWidget {
@@ -18,6 +19,7 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Constants.cornerRadii)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(

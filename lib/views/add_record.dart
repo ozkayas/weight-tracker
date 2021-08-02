@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:weight_tracker/common/constants.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
 import 'dart:io';
 import 'package:weight_tracker/widgets/weight_picker_card.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 
 class AddRecordScreen extends StatefulWidget {
   const AddRecordScreen({Key? key}) : super(key: key);
@@ -19,15 +19,12 @@ class AddRecordScreen extends StatefulWidget {
 
 class _AddRecordScreenState extends State<AddRecordScreen> {
   final Controller _controller = Get.find();
-  //TextEditingController _dateController = TextEditingController();
-  //TextEditingController _weightController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
   int _weight = 70;
   DateTime _selectedDate = DateTime.now();
-  //final _formKey = GlobalKey<FormState>();
   File? _imageFile;
   //Local path of photo, if user takes one, to be saved in a record
-  String? photoUrl;
+  String? _photoUrl;
 
   //Callback function for WeighPickerCard
   void setWeight(int value) {
@@ -36,8 +33,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //_dateController.text = DateFormat('EEE, MMM d').format(_selectedDate);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Add New Record'),
@@ -51,6 +46,8 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
             children: [
               WeightPickerCard(onChanged: setWeight),
               Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Constants.cornerRadii)),
                 child: GestureDetector(
                   onTap: () async {
                     _selectedDate = await pickDate(context);
@@ -76,8 +73,9 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   ),
                 ),
               ),
-
               Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Constants.cornerRadii)),
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Row(
@@ -88,8 +86,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: TextFormField(
                             controller: _noteController,
                             maxLines: null,
@@ -112,15 +109,12 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                   ),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                       onPressed: () async {
                         await captureSaveImageToExternalStorage();
-                        //await captureSaveImage();
-                        //await captureSaveImageToGallery();
                       },
                       icon: Icon(
                         Icons.camera_alt,
@@ -131,33 +125,38 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                       width: double.infinity,
                     ),
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.black),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                Constants.cornerRadii - 4)),
+                      ),
                       onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
                         handleSave();
-
                       },
                       child: Text('Save Record'),
                     ),
                   ),
                 ],
               ),
-              (photoUrl == null)
-                  ? Container()
-                  : Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(12),
-                        //child: Text('AAA'),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: FileImage(File(photoUrl!))
-                              //image: FileImage(_imageFile!))),
-                              ),
+              Container(
+                child: (_photoUrl == null)
+                    ? Container()
+                    : Expanded(
+                        child: Container(
+                          margin: EdgeInsets.all(12),
+                          //child: Text('AAA'),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(File(_photoUrl!))
+                                //image: FileImage(_imageFile!))),
+                                ),
+                          ),
                         ),
                       ),
-                    ),
+              ),
             ],
           ),
         ),
@@ -210,7 +209,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
         dateTime: _selectedDate,
         weight: _weight.toDouble(),
         note: _noteController.text,
-        photoUrl: photoUrl);
+        photoUrl: _photoUrl);
     _controller.addRecord(newRecord);
     Get.back();
   }
@@ -218,8 +217,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   Future<File?> captureSaveImage() async {
     final XFile? pickedImage = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 200);
-    print(pickedImage!.name);
-    print(pickedImage.path);
+
 
     if (pickedImage == null) return null;
 
@@ -231,7 +229,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     final Directory extDir = await getApplicationDocumentsDirectory();
     String dirPath = extDir.path;
     print('application directory to save images: ${extDir.path}');
-
 
     // set image name from DateTime
     String imageName = DateTime.now().millisecondsSinceEpoch.toString();
@@ -247,11 +244,12 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     print('image copy on $filePath ? : ${newImage.existsSync()}');
 
     // save photoUrl to state variable
-    photoUrl = filePath;
-    print('File(photoUrl!).existsSync() : ${File(photoUrl!).existsSync()}');
-
+    _photoUrl = filePath;
+    print('File(photoUrl!).existsSync() : ${File(_photoUrl!).existsSync()}');
   }
 
+  /// This alternative method can be used to save images to external path
+  /// however requires some permissions
   Future<File?> captureSaveImageToExternalStorage() async {
     final XFile? pickedImage = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 200);
@@ -270,23 +268,18 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
     try {
       final directory = await getExternalStorageDirectory();
       if (directory != null)
-        _imageFile = await File(pickedImage.path).copy('${directory.path}/$imageName.jpg');
-
+        _imageFile = await File(pickedImage.path)
+            .copy('${directory.path}/$imageName.jpg');
     } catch (e) {
       return null;
     }
 
-
-    setState(() {
-
-    });
+    setState(() {});
     //print('image copy on $filePath ? : ${newImage.existsSync()}');
 
     // save photoUrl to state variable
-    photoUrl = _imageFile!.path;
-    print('File(photoUrl!).existsSync() : ${File(photoUrl!).existsSync()}');
-    print(photoUrl);
-
+    _photoUrl = _imageFile!.path;
+    print('File(photoUrl!).existsSync() : ${File(_photoUrl!).existsSync()}');
+    print(_photoUrl);
   }
-
 }
