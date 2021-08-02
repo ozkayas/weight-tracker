@@ -108,23 +108,27 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                 labelText: 'Optional Note',
               ),
             ),
-            (_photoUrl == null)
-                ? Container()
-                : Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(12),
-                      //child: Text('AAA'),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
+            Container(
+              child:
+                (_photoUrl == null)
+                    ? Container()
+                    : Expanded(
+                        child: Container(
+                          margin: EdgeInsets.all(12),
+                          //child: Text('AAA'),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                                fit: BoxFit.fill,
 
-                            image: _imageFile
-                            //image: FileImage(_imageFile!))),
-                            ),
+                                image: _imageFile
+                                //image: FileImage(_imageFile!))),
+                                ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+
+            ),
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(
                 width: double.infinity,
@@ -143,13 +147,6 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
         ),
       ),
 
-      // check if file exists
-      floatingActionButton: FloatingActionButton(onPressed: ()async{
-
-        print(FileSystemEntity.typeSync(_photoUrl!) != FileSystemEntityType.notFound);
-       print(await File(_photoUrl!).exists());
-
-      }),
     );
   }
 
