@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weight_tracker/common/constants.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
@@ -14,19 +15,26 @@ class RecordListTile extends StatelessWidget {
     final Controller _controller = Get.find();
 
     return Card(
-      child: ListTile(
-        leading: buildDate(),
-        title: buildWeight(),
-        trailing: buildRow(_controller),
+
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Constants.cornerRadii)),
+
+      child: Padding(
+        padding: const EdgeInsets.only(left: 0, top: 8, right: 0, bottom: 0),
+        child: ListTile(
+          leading: buildDate(),
+          title: buildWeight(),
+          trailing: buildIcons(_controller),
+        ),
       ),
     );
   }
 
-  Widget buildRow(Controller _controller) {
+  Widget buildIcons(Controller _controller) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
+          padding: EdgeInsets.all(0),
           icon: Icon(
             Icons.edit,
             color: Colors.grey.shade500,
@@ -36,6 +44,8 @@ class RecordListTile extends StatelessWidget {
           },
         ),
         IconButton(
+          padding: EdgeInsets.all(0),
+
           icon: Icon(
             Icons.delete,
             color: Colors.redAccent,
@@ -79,7 +89,7 @@ class RecordListTile extends StatelessWidget {
   Widget buildWeight() => Center(
         child: Text(
           record.weight.toStringAsFixed(1),
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       );
 }

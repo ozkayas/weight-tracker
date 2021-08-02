@@ -55,6 +55,7 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     print('_photoUrl $_photoUrl');
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
 
         title: Text('Edit Record'),
