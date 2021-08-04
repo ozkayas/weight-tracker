@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: Themes.lightTheme,
+        darkTheme: Themes.testTheme,
         home: HomePage(),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:weight_tracker/models/record.dart';
 import 'package:weight_tracker/viewmodels/controller.dart';
@@ -23,6 +24,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
       () => Scaffold(
         appBar: AppBar(
           title: Text('History'),
+          actions: [IconButton(onPressed: (){
+
+            if (Get.isDarkMode)
+              Get.changeThemeMode(ThemeMode.light);
+            else
+              Get.changeThemeMode(ThemeMode.dark);
+
+
+          }, icon: Icon(FontAwesomeIcons.moon, color: Colors.grey, size: 18,))],
         ),
         body: records.isEmpty
             ? Center(child: Container(child: Text("Please Add Some Records")))

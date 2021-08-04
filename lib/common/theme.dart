@@ -12,10 +12,22 @@ class Themes {
   ),),
   appBarTheme: AppBarTheme(backgroundColor: Colors.white,
   textTheme: GoogleFonts.nunitoTextTheme(),
-  //textTheme: GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme),
 
   centerTitle: true,
 
   ),);
+  static ThemeData darkTheme = ThemeData(
+  textTheme: GoogleFonts.nunitoTextTheme(),
+  scaffoldBackgroundColor: Colors.black87,
+  primaryTextTheme: TextTheme(
+  headline6: TextStyle(
+  color: Colors.black
+  ),),
+  appBarTheme: AppBarTheme(backgroundColor: Colors.white,
+  textTheme: GoogleFonts.nunitoTextTheme(),
 
+  centerTitle: true,
+
+  ),);
+  static ThemeData testTheme = ThemeData.dark();
 }

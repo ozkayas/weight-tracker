@@ -10,6 +10,7 @@ class RecordListTile extends StatelessWidget {
   const RecordListTile({Key? key, required this.record}) : super(key: key);
   final Record record;
 
+
   @override
   Widget build(BuildContext context) {
     final Controller _controller = Get.find();
@@ -44,6 +45,8 @@ class RecordListTile extends StatelessWidget {
               Get.to(() => EditRecordScreen(record: record));
             },
           ),
+
+
         ),
         SizedBox(
           width: 30,
@@ -66,9 +69,6 @@ class RecordListTile extends StatelessWidget {
                 },
                 textCancel: 'No',
               );
-              //onConfirm: _controller.deleteRecord(record));
-
-              ///Todo; Add toast or alert message, to check are you sure?
             },
           ),
         ),
