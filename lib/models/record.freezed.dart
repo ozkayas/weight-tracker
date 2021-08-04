@@ -22,7 +22,7 @@ class _$RecordTearOff {
 
   _Record call(
       {required DateTime dateTime,
-      required double weight,
+      required int weight,
       String? note,
       String? photoUrl}) {
     return _Record(
@@ -44,7 +44,7 @@ const $Record = _$RecordTearOff();
 /// @nodoc
 mixin _$Record {
   DateTime get dateTime => throw _privateConstructorUsedError;
-  double get weight => throw _privateConstructorUsedError;
+  int get weight => throw _privateConstructorUsedError;
   String? get note => throw _privateConstructorUsedError;
   String? get photoUrl => throw _privateConstructorUsedError;
 
@@ -57,7 +57,7 @@ mixin _$Record {
 abstract class $RecordCopyWith<$Res> {
   factory $RecordCopyWith(Record value, $Res Function(Record) then) =
       _$RecordCopyWithImpl<$Res>;
-  $Res call({DateTime dateTime, double weight, String? note, String? photoUrl});
+  $Res call({DateTime dateTime, int weight, String? note, String? photoUrl});
 }
 
 /// @nodoc
@@ -83,7 +83,7 @@ class _$RecordCopyWithImpl<$Res> implements $RecordCopyWith<$Res> {
       weight: weight == freezed
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -101,7 +101,7 @@ abstract class _$RecordCopyWith<$Res> implements $RecordCopyWith<$Res> {
   factory _$RecordCopyWith(_Record value, $Res Function(_Record) then) =
       __$RecordCopyWithImpl<$Res>;
   @override
-  $Res call({DateTime dateTime, double weight, String? note, String? photoUrl});
+  $Res call({DateTime dateTime, int weight, String? note, String? photoUrl});
 }
 
 /// @nodoc
@@ -128,7 +128,7 @@ class __$RecordCopyWithImpl<$Res> extends _$RecordCopyWithImpl<$Res>
       weight: weight == freezed
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
       note: note == freezed
           ? _value.note
           : note // ignore: cast_nullable_to_non_nullable
@@ -153,7 +153,7 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
   @override
   final DateTime dateTime;
   @override
-  final double weight;
+  final int weight;
   @override
   final String? note;
   @override
@@ -213,7 +213,7 @@ class _$_Record with DiagnosticableTreeMixin implements _Record {
 abstract class _Record implements Record {
   factory _Record(
       {required DateTime dateTime,
-      required double weight,
+      required int weight,
       String? note,
       String? photoUrl}) = _$_Record;
 
@@ -222,7 +222,7 @@ abstract class _Record implements Record {
   @override
   DateTime get dateTime => throw _privateConstructorUsedError;
   @override
-  double get weight => throw _privateConstructorUsedError;
+  int get weight => throw _privateConstructorUsedError;
   @override
   String? get note => throw _privateConstructorUsedError;
   @override

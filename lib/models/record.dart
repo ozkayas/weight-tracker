@@ -8,7 +8,7 @@ part 'record.g.dart';
 class Record with _$Record {
   factory Record(
       {required DateTime dateTime,
-      required double weight,
+      required int weight,
       String? note,
       String? photoUrl}) = _Record;
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:weight_tracker/common/constants.dart';
 import 'package:weight_tracker/models/record.dart';
-import 'dart:io';
 import 'package:weight_tracker/viewmodels/controller.dart';
+import 'dart:io';
+import 'package:weight_tracker/widgets/weight_picker_card.dart';
 
 class EditRecordScreen extends StatefulWidget {
   const EditRecordScreen({Key? key, required this.record}) : super(key: key);
@@ -15,103 +17,135 @@ class EditRecordScreen extends StatefulWidget {
 }
 
 class _EditRecordScreenState extends State<EditRecordScreen> {
+  //Inject controller
   final Controller _controller = Get.find();
-  TextEditingController _date = TextEditingController();
-  TextEditingController _weight = TextEditingController();
-  TextEditingController _note = TextEditingController();
-  late DateTime _selectedDate;
-  var _imageFile;
-  String? _photoUrl;
-  final _formKey = GlobalKey<FormState>();
 
+  //State variables related to record to be edited
+  TextEditingController _noteController = TextEditingController();
+  late int _weight;
+  late DateTime _selectedDate;
+  //Local path of photo, if user takes one, to be saved in a record
+  String? _photoUrl;
 
   @override
   void initState() {
     super.initState();
-    final Record record = widget.record;
-    _selectedDate = record.dateTime;
-    _date.text = DateFormat('EEE, MMM d').format(record.dateTime);
-    _weight.text = record.weight.toStringAsFixed(1);
-    _note.text = record.note ?? "";
-    _photoUrl = record.photoUrl;
-    _imageFile= FileImage(File(_photoUrl!));
+    _noteController.text = widget.record.note ?? '';
+    _weight = widget.record.weight;
+    _selectedDate = widget.record.dateTime;
+    _photoUrl = widget.record.photoUrl ?? null;
   }
 
-
-
-
-
-  @override
-  void dispose() {
-    _date.dispose();
-    _weight.dispose();
-    _note.dispose();
-    super.dispose();
+  //Callback function for WeighPickerCard
+  void setWeight(int value) {
+    _weight = value;
   }
 
   @override
   Widget build(BuildContext context) {
-    print('widget.record.photoUrl: ${widget.record.photoUrl}');
-    print('_photoUrl $_photoUrl');
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-
         title: Text('Edit Record'),
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        child: Form(
-          key: _formKey,
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            TextFormField(
-              controller: _date,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.date_range),
-                //labelText: 'Date',
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              WeightPickerCard(
+                onChanged: setWeight,
+                initialValue: _weight,
               ),
-              onTap: () async {
-                _selectedDate = await pickDate(context);
-                print(_selectedDate.toIso8601String());
-                setState(() {
-                  _date.text = DateFormat('EEE, MMM d').format(_selectedDate);
-                });
-              },
-            ),
-            TextFormField(
-              controller: _weight,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.fitness_center_outlined,
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Constants.cornerRadii)),
+                child: GestureDetector(
+                  onTap: () async {
+                    _selectedDate = await pickDate(context);
+                    setState(() {});
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          child: Icon(FontAwesomeIcons.calendar, size: 40),
+                        ),
+                        Expanded(
+                            child: Text(
+                          DateFormat('EEE, MMM d').format(_selectedDate),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ))
+                      ],
+                    ),
+                  ),
                 ),
-
-                //labelText: 'Date',
               ),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-
-              ///Todo; should allow decimal input or use a picker
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter weight';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              /// Todo; will be multiple lines
-              controller: _note,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.edit),
-                labelText: 'Optional Note',
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(Constants.cornerRadii)),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        child: Icon(FontAwesomeIcons.stickyNote, size: 40),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: TextFormField(
+                            controller: _noteController,
+                            maxLines: null,
+                            decoration: InputDecoration(
+                              hintText: 'Optional Note',
+                              hintStyle: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black45),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black87),
+                              ),
+                              border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black54),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            Container(
-              child:
-                (_photoUrl == null)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ConstrainedBox(
+                    constraints: BoxConstraints.tightForFinite(
+                      width: double.infinity,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                Constants.cornerRadii - 4)),
+                      ),
+                      onPressed: () {
+                        handleEdit();
+                      },
+                      child: Text('Edit Record'),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                child: (_photoUrl == null)
                     ? Container()
                     : Expanded(
                         child: Container(
@@ -121,46 +155,53 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
                                 fit: BoxFit.fill,
-
-                                image: _imageFile
+                                image: FileImage(File(_photoUrl!))
                                 //image: FileImage(_imageFile!))),
                                 ),
                           ),
                         ),
                       ),
-
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints.tightFor(
-                width: double.infinity,
               ),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
-                    handleEdit();
-                  }
-                },
-                child: Text('Save Record'),
-              ),
-            )
-          ]),
+            ],
+          ),
         ),
       ),
-
     );
   }
 
   Future<DateTime> pickDate(BuildContext context) async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: initialDate.subtract(Duration(days: 365)),
-      lastDate: initialDate.add(
-        Duration(days: 30),
-      ),
-    );
+        context: context,
+        initialDate: initialDate,
+        firstDate: initialDate.subtract(Duration(days: 365)),
+        lastDate: initialDate.add(
+          Duration(days: 30),
+        ),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData(
+              primarySwatch: Colors.grey,
+              splashColor: Colors.black,
+              textTheme: TextTheme(
+                subtitle1: TextStyle(color: Colors.black),
+                button: TextStyle(color: Colors.black),
+              ),
+              accentColor: Colors.black,
+              colorScheme: ColorScheme.light(
+                  primary: Colors.black,
+                  primaryVariant: Colors.black,
+                  secondaryVariant: Colors.black,
+                  onSecondary: Colors.black,
+                  onPrimary: Colors.white,
+                  surface: Colors.black,
+                  onSurface: Colors.black,
+                  secondary: Colors.black),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child ?? Text(""),
+          );
+        });
     if (newDate != null) {
       return newDate;
     } else {
@@ -168,13 +209,14 @@ class _EditRecordScreenState extends State<EditRecordScreen> {
     }
   }
 
+  /// This alternative method can be used to save images to external path
+  /// however requires some permissions
   void handleEdit() {
     Record newRecord = Record(
         dateTime: _selectedDate,
-        weight: double.parse(_weight.text),
-        note: _note.text,
-        photoUrl: _photoUrl
-    );
+        weight: _weight,
+        note: _noteController.text,
+        photoUrl: _photoUrl);
     _controller.deleteRecord(widget.record);
     _controller.addRecord(newRecord);
     Get.back();

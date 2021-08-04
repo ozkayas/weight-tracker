@@ -19,8 +19,8 @@ class RecordsGraph extends StatelessWidget {
       var firstDayOfYear = DateTime(records.first.dateTime.year, 1, 1);
       print(numberOfDay(records.first.dateTime));
       return records
-          .map((record) =>
-              FlSpot(numberOfDay(record.dateTime).toDouble(), record.weight))
+          .map((record) => FlSpot(numberOfDay(record.dateTime).toDouble(),
+              record.weight.toDouble()))
           .toList();
     }
 
@@ -83,10 +83,16 @@ class RecordsGraph extends StatelessWidget {
     }
 
     //Graph Axis data
-    var _minY =
-        records.reduce((a, b) => a.weight < b.weight ? a : b).weight - 5;
-    var _maxY =
-        records.reduce((a, b) => a.weight > b.weight ? a : b).weight + 5;
+    var _minY = records
+            .reduce((a, b) => a.weight < b.weight ? a : b)
+            .weight
+            .toDouble() -
+        5;
+    var _maxY = records
+            .reduce((a, b) => a.weight > b.weight ? a : b)
+            .weight
+            .toDouble() +
+        5;
     var _minX = (numberOfDay(records.first.dateTime) - 5).toDouble();
     var _maxX = (numberOfDay(records.last.dateTime) + 5).toDouble();
 

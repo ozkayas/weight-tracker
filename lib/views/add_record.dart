@@ -44,7 +44,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WeightPickerCard(onChanged: setWeight),
+              WeightPickerCard(onChanged: setWeight, initialValue: _weight),
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(Constants.cornerRadii)),
@@ -207,7 +207,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   void handleSave() {
     Record newRecord = Record(
         dateTime: _selectedDate,
-        weight: _weight.toDouble(),
+        weight: _weight,
         note: _noteController.text,
         photoUrl: _photoUrl);
     _controller.addRecord(newRecord);
@@ -217,7 +217,6 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
   Future<File?> captureSaveImage() async {
     final XFile? pickedImage = await ImagePicker()
         .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 200);
-
 
     if (pickedImage == null) return null;
 

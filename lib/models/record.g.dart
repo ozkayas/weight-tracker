@@ -9,7 +9,7 @@ part of 'record.dart';
 _$_Record _$_$_RecordFromJson(Map<String, dynamic> json) {
   return _$_Record(
     dateTime: DateTime.parse(json['dateTime'] as String),
-    weight: (json['weight'] as num).toDouble(),
+    weight: json['weight'] as int,
     note: json['note'] as String?,
     photoUrl: json['photoUrl'] as String?,
   );

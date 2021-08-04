@@ -15,9 +15,8 @@ class RecordListTile extends StatelessWidget {
     final Controller _controller = Get.find();
 
     return Card(
-
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Constants.cornerRadii)),
-
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Constants.cornerRadii)),
       child: Padding(
         padding: const EdgeInsets.only(left: 0, top: 8, right: 0, bottom: 0),
         child: ListTile(
@@ -33,26 +32,33 @@ class RecordListTile extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        IconButton(
-          padding: EdgeInsets.all(0),
-          icon: Icon(
-            Icons.edit,
-            color: Colors.grey.shade500,
+        SizedBox(
+          width: 30,
+          child: IconButton(
+            padding: EdgeInsets.all(0),
+            icon: Icon(
+              Icons.edit,
+              color: Colors.grey.shade500,
+            ),
+            onPressed: () {
+              Get.to(() => EditRecordScreen(record: record));
+            },
           ),
-          onPressed: () {
-            Get.to(()=>EditRecordScreen(record: record));
-          },
         ),
-        IconButton(
-          padding: EdgeInsets.all(0),
+        SizedBox(
+          width: 30,
+          child: IconButton(
+            padding: EdgeInsets.all(0),
+            icon: Icon(
+              Icons.delete,
+              color: Colors.redAccent,
+            ),
+            onPressed: () {
+              _controller.deleteRecord(record);
 
-          icon: Icon(
-            Icons.delete,
-            color: Colors.redAccent,
+              ///Todo; Add toast or alert message, to check are you sure?
+            },
           ),
-          onPressed: () {
-            _controller.deleteRecord(record);
-          },
         ),
       ],
     );
