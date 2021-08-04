@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weight_tracker/common/dismiss_keyboard.dart';
+import 'package:weight_tracker/common/theme.dart';
 import 'package:weight_tracker/views/home_page.dart';
 
 void main() async {
@@ -24,29 +25,14 @@ class MyApp extends StatelessWidget {
     return DismissKeyboard(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-
-          //fontFamily: ,
-          textTheme: GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme),
-          scaffoldBackgroundColor: Colors.grey.shade50,
-          primaryTextTheme: TextTheme(
-          headline6: TextStyle(
-          color: Colors.black
-      ),),
-          appBarTheme: AppBarTheme(backgroundColor: Colors.white,
-            textTheme: GoogleFonts.nunitoTextTheme(Theme.of(context).textTheme),
-
-            centerTitle: true,
-
-            //titleTextStyle: TextStyle(color: Colors.green, backgroundColor: Colors.red),
-        ),),
+        theme: Themes.lightTheme,
         home: HomePage(),
       ),
     );
   }
 }
 
-/// Todo; Add Font nunito
+
 /// Todo; Add Dark Theme
 /// Todo; Find & Add A Cool Graph package
 /// Todo; toast to undo feature
