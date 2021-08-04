@@ -54,7 +54,19 @@ class RecordListTile extends StatelessWidget {
               color: Colors.redAccent,
             ),
             onPressed: () {
-              _controller.deleteRecord(record);
+              Get.defaultDialog(
+                title: 'Delete Record',
+                titleStyle: TextStyle(fontWeight: FontWeight.bold),
+                middleText: 'Are you sure?',
+                textConfirm: 'Yes',
+                buttonColor: Colors.white,
+                onConfirm: () {
+                  _controller.deleteRecord(record);
+                  Get.back();
+                },
+                textCancel: 'No',
+              );
+              //onConfirm: _controller.deleteRecord(record));
 
               ///Todo; Add toast or alert message, to check are you sure?
             },
