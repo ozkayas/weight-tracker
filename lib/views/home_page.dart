@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
             Get.to(() => AddRecordScreen());
             //_controller.addRecord(Record(dateTime: DateTime.now(), weight: 30.0));
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.add, color: Colors.white),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar(
