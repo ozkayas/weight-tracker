@@ -12,8 +12,7 @@ class GraphScreen extends StatefulWidget {
 
 class _GraphScreenState extends State<GraphScreen> {
   final Controller _controller = Get.find();
-/*  late String currentWeight;
-  late String totalProgress;*/
+
 
   String currentWeight() => _controller.records.last.weight.toStringAsFixed(1);
 
@@ -31,6 +30,7 @@ class _GraphScreenState extends State<GraphScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       //backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
@@ -38,7 +38,8 @@ class _GraphScreenState extends State<GraphScreen> {
       ),
       body: _controller.records.isEmpty
           ? Center(
-              child: Text('Please Add Some Records'),
+              child:
+                  Text('Please Add Some Records', style: textTheme.bodyText1),
             )
           : Column(
               children: [

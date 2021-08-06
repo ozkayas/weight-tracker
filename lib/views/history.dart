@@ -18,24 +18,39 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     List<Record> records = _controller.records;
 
     return Obx(
       () => Scaffold(
         appBar: AppBar(
           title: Text('History'),
-          actions: [IconButton(onPressed: (){
-
-            if (Get.isDarkMode)
-              Get.changeThemeMode(ThemeMode.light);
-            else
-              Get.changeThemeMode(ThemeMode.dark);
-
-
-          }, icon: Icon(FontAwesomeIcons.moon, color: Colors.grey, size: 18,))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.changeThemeMode(ThemeMode.light);
+                },
+                icon: Icon(
+                  FontAwesomeIcons.sun,
+                  color: Colors.yellow,
+                  size: 18,
+                )),
+            IconButton(
+                onPressed: () {
+                  Get.changeThemeMode(ThemeMode.dark);
+                },
+                icon: Icon(
+                  FontAwesomeIcons.moon,
+                  color: Colors.white,
+                  size: 18,
+                ))
+          ],
         ),
         body: records.isEmpty
-            ? Center(child: Container(child: Text("Please Add Some Records")))
+            ? Center(
+                child: Container(
+                    child: Text("Please Add Some Records",
+                        style: textTheme.bodyText1)))
             : ListView(
                 physics: BouncingScrollPhysics(),
                 children: records

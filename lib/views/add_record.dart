@@ -64,8 +64,13 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                         Expanded(
                             child: Text(
                           DateFormat('EEE, MMM d').format(_selectedDate),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                          /* style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20) */
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
                           textAlign: TextAlign.center,
                         ))
                       ],
@@ -74,6 +79,7 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                 ),
               ),
               Card(
+                //margin: EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(Constants.cornerRadii)),
                 child: Padding(
@@ -92,15 +98,23 @@ class _AddRecordScreenState extends State<AddRecordScreen> {
                             maxLines: null,
                             decoration: InputDecoration(
                               hintText: 'Optional Note',
-                              hintStyle: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.black45),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                              /* disabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.deepOrange)), */
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey)),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black87),
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black54),
-                              ),
+                              /* border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ), */
                             ),
                           ),
                         ),

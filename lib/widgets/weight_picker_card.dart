@@ -43,11 +43,16 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
               alignment: Alignment.bottomCenter,
               children: [
                 NumberPicker(
-                  textStyle: TextStyle(fontSize: 16, color: Colors.black45),
-                  selectedTextStyle: TextStyle(
+                  //textStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                  textStyle: Theme.of(context).textTheme.bodyText1,
+                  /* selectedTextStyle: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: Colors.black), */
+                  selectedTextStyle: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
                   itemWidth: 80,
                   itemCount: 3,
                   value: _currentHorizontalIntValue,
@@ -62,7 +67,7 @@ class _WeightPickerCardState extends State<WeightPickerCard> {
                   },
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black26),
+                    border: Border.all(color: Colors.grey),
                   ),
                 ),
                 Icon(

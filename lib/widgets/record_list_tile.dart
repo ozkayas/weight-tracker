@@ -10,7 +10,6 @@ class RecordListTile extends StatelessWidget {
   const RecordListTile({Key? key, required this.record}) : super(key: key);
   final Record record;
 
-
   @override
   Widget build(BuildContext context) {
     final Controller _controller = Get.find();
@@ -21,8 +20,8 @@ class RecordListTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 0, top: 8, right: 0, bottom: 0),
         child: ListTile(
-          leading: buildDate(),
-          title: buildWeight(),
+          leading: buildDate(context),
+          title: buildWeight(context),
           trailing: buildIcons(_controller),
         ),
       ),
@@ -45,8 +44,6 @@ class RecordListTile extends StatelessWidget {
               Get.to(() => EditRecordScreen(record: record));
             },
           ),
-
-
         ),
         SizedBox(
           width: 30,
@@ -76,12 +73,13 @@ class RecordListTile extends StatelessWidget {
     );
   }
 
-  Widget buildDate() => Column(
+  Widget buildDate(BuildContext context) => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(DateFormat('EEE, MMM d').format(record.dateTime)),
+          Text(DateFormat('EEE, MMM d').format(record.dateTime),
+              style: Theme.of(context).textTheme.bodyText1),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -104,10 +102,12 @@ class RecordListTile extends StatelessWidget {
         ],
       );
 
-  Widget buildWeight() => Center(
-        child: Text(
-          record.weight.toStringAsFixed(1),
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      );
+  Widget buildWeight(BuildContext context) => Center(
+          child: Text(
+        record.weight.toStringAsFixed(1),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText1!
+            .copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+      ));
 }
