@@ -13,7 +13,6 @@ class GraphScreen extends StatefulWidget {
 class _GraphScreenState extends State<GraphScreen> {
   final Controller _controller = Get.find();
 
-
   String currentWeight() => _controller.records.last.weight.toStringAsFixed(1);
 
   String totalProgress() =>
@@ -56,17 +55,17 @@ class _GraphScreenState extends State<GraphScreen> {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                currentWeight(),
-                                style: TextStyle(
-                                    fontSize: 50, fontWeight: FontWeight.bold),
-                              ),
+                              Text(currentWeight(),
+                                  style: textTheme.bodyText1!.copyWith(
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold)),
                               SizedBox(
                                 width: 10,
                               ),
-                              Text('kg')
+                              Text('kg',
+                                  style: Theme.of(context).textTheme.bodyText1)
                             ]),
-                        Text('Current Weight')
+                        Text('Current Weight', style: textTheme.bodyText1)
                       ],
                     ),
                   ),
