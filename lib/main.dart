@@ -25,11 +25,10 @@ class MyApp extends StatelessWidget {
     return DismissKeyboard(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        //theme: ThemeData.light(),
-        //darkTheme: ThemeData.dark(),
+
         theme: Themes.lightTheme,
         darkTheme: Themes.darkTheme,
-        themeMode: ThemeMode.system,
+        //themeMode: ThemeMode.system,
         home: HomePage(),
       ),
     );

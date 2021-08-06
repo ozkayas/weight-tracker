@@ -13,6 +13,7 @@ class GraphScreen extends StatefulWidget {
 
 class _GraphScreenState extends State<GraphScreen> {
   final Controller _controller = Get.find();
+  bool _isDarkMode = false;
 
   String currentWeight() => _controller.records.last.weight.toStringAsFixed(1);
 
@@ -35,7 +36,7 @@ class _GraphScreenState extends State<GraphScreen> {
       //backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         title: Text('Graph'),
-        actions: [_buildFlutterSwitch()],
+        actions: [_buildFlutterSwitch(_isDarkMode)],
       ),
       body: _controller.records.isEmpty
           ? Center(
@@ -103,22 +104,22 @@ class _GraphScreenState extends State<GraphScreen> {
     );
   }
 
-  Widget _buildFlutterSwitch() => FlutterSwitch(
-        width: 100.0,
-        height: 55.0,
-        toggleSize: 45.0,
-        value: true,
+  Widget _buildFlutterSwitch(bool isDarkMode) => FlutterSwitch(
+        width: 50.0,
+        height: 30.0,
+        toggleSize: 25.0,
+        value: isDarkMode,
         borderRadius: 30.0,
         padding: 2.0,
         activeToggleColor: Color(0xFF6E40C9),
         inactiveToggleColor: Color(0xFF2F363D),
         activeSwitchBorder: Border.all(
           color: Color(0xFF3C1E70),
-          width: 6.0,
+          width: 3.0,
         ),
         inactiveSwitchBorder: Border.all(
           color: Color(0xFFD1D5DA),
-          width: 6.0,
+          width: 3.0,
         ),
         activeColor: Color(0xFF271052),
         inactiveColor: Colors.white,
@@ -131,20 +132,10 @@ class _GraphScreenState extends State<GraphScreen> {
           color: Color(0xFFFFDF5D),
         ),
         onToggle: (val) {
-          print(val);
-          /*     setState(() {
-                          status7 = val;
-
-                          if (val) {
-                            _textColor = Colors.white;
-                            _appBarColor = Color.fromRGBO(22, 27, 34, 1);
-                            _scaffoldBgcolor = Color(0xFF0D1117);
-                          } else {
-                            _textColor = Colors.black;
-                            _appBarColor = Color.fromRGBO(36, 41, 46, 1);
-                            _scaffoldBgcolor = Colors.white;
-                          }
-                        }); */
+          setState(() {
+              _isDarkMode = !_isDarkMode;
+              val? Get.changeThemeMode(ThemeMode.dark):Get.changeThemeMode(ThemeMode.light);
+          });
         },
       );
 }
