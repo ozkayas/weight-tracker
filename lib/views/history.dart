@@ -41,7 +41,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 },
                 icon: Icon(
                   FontAwesomeIcons.moon,
-                  color: Colors.white,
                   size: 18,
                 ))
           ],

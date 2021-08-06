@@ -89,9 +89,9 @@ class _GraphScreenState extends State<GraphScreen> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text('kg')
+                              Text('kg', style: textTheme.bodyText1)
                             ]),
-                        Text('Total Progress')
+                        Text('Total Progress', style: textTheme.bodyText1)
                       ],
                     ),
                   ),
