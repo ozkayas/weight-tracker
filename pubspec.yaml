@@ -42,6 +42,7 @@ dependencies:
   gallery_saver: any
   animated_bottom_navigation_bar: ^0.3.2
   google_fonts: ^2.1.0
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:
