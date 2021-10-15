@@ -25,7 +25,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       () => Scaffold(
         appBar: AppBar(
           title: Text('History'),
-          actions: [
+          /* actions: [
             IconButton(
                 onPressed: () {
                   Get.changeThemeMode(ThemeMode.light);
@@ -43,7 +43,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   FontAwesomeIcons.moon,
                   size: 18,
                 ))
-          ],
+          ], */
         ),
         body: records.isEmpty
             ? Center(
