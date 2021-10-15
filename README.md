@@ -1,17 +1,21 @@
-# weight_tracker
+# Weight Tracker
 
-A weight tracking app
+An easy to use weight tracking app inspired by [M.Szalek's work](https://github.com/MSzalek-Mobile/weight_tracker)
 
-## Getting Started
+## Technical Points
 
-State Management & Data Persistence and Routing is implemented via GetX package.
-Chart -> fl_chart package.
+Following packages are installed for related features
 
-A few resources to get you started if this is your first Flutter project:
+GetX & GetStorage:
+- State ManagementData
+- Data Persistency
+- Routing
+- Dialogs
+- Theme change
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+fl_chart package for displaying weight chart
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+freezed package for json serialization and sealing data classes
+
+
+If you'd like to contribute, possible future improvements may be; selecting a language option, local notifications, adding more photos for a record. Any improvement ideas are very welcome!
